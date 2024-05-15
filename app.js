@@ -1,6 +1,6 @@
 const express   = require('express');
 const morgan    = require('morgan');
-//const cors = require('cors');
+const cors = require('cors');
 
 const userRouter = require('./routes/userRoutes');
 const projectRouter = require('./routes/projectRoutes');
@@ -11,8 +11,8 @@ const app = express();
 app.use(morgan('dev'));
 app.use(express.json());
 
-//app.use(cors());
-//app.options('*', cors());
+app.use(cors());
+app.options('*', cors());
 
 
 //FOR STATIC FILE ACCESS
