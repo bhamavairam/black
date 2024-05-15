@@ -6,13 +6,14 @@ const router = express.Router();
 
 router
     .route('/')
-    .get(projectController.getAllProjects)
-    .post(projectController.checkBody, projectController.createProject)
+    .get(projectController.getAllprojects)
+    .post(projectController.checkBody, projectController.createProject);
  //    .delete(projectController.deleteUser)
     //.put();
 
-//router
-//.route('/:id')
-//.get(userController.getAllUsers)
+router
+    .route('/:id')
+    .put(projectController.updateProject)
+    .delete(projectController.deleteProject);
 
 module.exports = router;

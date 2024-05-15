@@ -52,3 +52,43 @@ exports.getAllClients = async (req,res) => {
         });
     };
 }
+
+exports.getClient = async (req,res) => {
+
+    try{
+        const client = await Client.findById(req.params.id);
+    
+        res.status(200).json( {
+            status: 'success',
+            data : {
+                client} });
+    }
+    catch(err)
+    {
+        res.status(400).json( { 
+            status: 'failed',
+            message : err
+        });
+    };
+}
+
+
+exports.updateClient = async (req,res) => {
+
+    try 
+    {
+        const updatedClient = await Project.findByIdAndUpdate( req.params.id, req.body , { new: true}  );
+    
+    res.status(200).json( {
+        status: 'success',
+        data : updatedClient
+    });
+    } catch (err) {
+        res.status(400).json(  {
+            status: 'failed',
+            message: err
+        })
+    }
+};
+
+

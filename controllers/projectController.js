@@ -31,13 +31,58 @@ exports.createProject = async (req,res) => {
     }
 };
 
+exports.getAllprojects = async (req,res) => {
 
-exports.getAllProjects = (req,res) => {
-
+    try{
+        const projects = await Project.find();
     
         res.status(200).json( {
             status: 'success',
-            message: 'users retrieved successfully'
+            length : projects.length,
+            data : {
+                projects} });
+    }
+    catch(err)
+    {
+        res.status(400).json( { 
+            status: 'failed',
+            message : err
         });
     };
+}
+
+exports.updateProject = async (req,res) => {
+
+    try 
+    {
+        const updatedProject = await Project.findByIdAndUpdate( req.params.id, req.body , { new: true}  );
     
+    res.status(200).json( {
+        status: 'success',
+        data : updatedProject
+    });
+    } catch (err) {
+        res.status(400).json(  {
+            status: 'failed',
+            message: err
+        })
+    }
+};
+
+exports.deleteProject = async (req,res) => {
+
+    try 
+    {
+        const updatedProject = await Project.findByIdAndDelete( req.params.id, req.body );
+    
+    res.status(200).json( {
+        status: 'success',
+        data : updatedProject
+    });
+    } catch (err) {
+        res.status(400).json(  {
+            status: 'failed',
+            message: err
+        })
+    }
+};

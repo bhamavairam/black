@@ -7,12 +7,12 @@ const router = express.Router();
 router
     .route('/')
     .get(clientController.getAllClients)
-    .post(clientController.checkBody, clientController.createClient)
+    .post(clientController.checkBody, clientController.createClient);
  //    .delete(projectController.deleteUser)
     //.put();
 
-//router
-//.route('/:id')
-//.get(userController.getAllUsers)
+router
+    .route('/:id')
+    .get(clientController.getClient)
 
 module.exports = router;
