@@ -1,4 +1,4 @@
-const Client = require('../models/clientModel')
+const Client = require('./../models/clientModel')
 
 exports.checkBody = (req,res, next ) => {
     console.log( 'check client body for fields'+req.body);
@@ -13,7 +13,7 @@ exports.checkBody = (req,res, next ) => {
 };
 
 exports.createClient = async (req,res) => {
-
+    console.log("Creating client....")
     try 
     {
         const newClient = await Client.create( req.body  );
@@ -34,7 +34,7 @@ exports.createClient = async (req,res) => {
 
 
 exports.getAllClients = async (req,res) => {
-
+    console.log("Getting Clients...")
     try{
         const clients = await Client.find();
     
