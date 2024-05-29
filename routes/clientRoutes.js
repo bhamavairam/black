@@ -14,5 +14,6 @@ router
 router
     .route('/:id')
     .get(clientController.getClient)
+    .put(clientController.updateClient)
 
 module.exports = router;
