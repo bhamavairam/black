@@ -13,6 +13,7 @@ router
 
 router
     .route('/:id')
+    .get(projectController.findProject)
     .put(projectController.updateProject)
     .delete(projectController.deleteProject);
 

@@ -19,5 +19,6 @@ router
     .route('/:id')
     .get(resourceController.findResource)
     .put(resourceController.updateResource)
+    .delete(resourceController.deleteResource)
 
 module.exports = router;

@@ -37,14 +37,14 @@ exports.createResource = async (req,res) => {
 exports.getResources = async (req,res) => {
 
     try{
-        const resources = await Resource.find();
+        const resources = await Resource.find().populate('skills');
         // { 
         //    shortname: 'rajass',  
         //    skill: "BankWorld ATM Controller" 
        // }).exec();
 
         res.status(200).json( {
-            status: 'success',
+            status: 'ressuccess',
             length : resources.length,
             data : {
                 resources} });
@@ -61,7 +61,7 @@ exports.getResources = async (req,res) => {
 exports.findResource = async (req,res) => {
 
     try{
-        const resource = await Resource.findById(req.params.id);
+        const resource = await Resource.findById(req.params.id).populate('skills');
     
         res.status(200).json( {
             status: 'success',
@@ -117,3 +117,20 @@ exports.updateResource = async (req,res) => {
 };
 
 
+exports.deleteResource = async (req,res) => {
+
+    try 
+    {
+        const deletedResource = await Resource.findByIdAndDelete( req.params.id, req.body );
+    
+    res.status(200).json( {
+        status: 'success',
+        data : deletedResource
+    });
+    } catch (err) {
+        res.status(400).json(  {
+            status: 'failed',
+            message: err
+        })
+    }
+};

@@ -13,6 +13,7 @@ router
 
 router
     .route('/:id')
+    .get(skillController.findSkill)
     .put(skillController.updateSkill)
     .delete(skillController.deleteSkill);
 

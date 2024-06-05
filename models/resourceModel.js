@@ -29,10 +29,11 @@ const resourceSchema = new mongoose.Schema( {
         type: String,
         required: true
     },
-    skills: {
-        type: [String],
-        required: false
-    }
+    skills: [ {
+        type: mongoose.Schema.ObjectId,
+        ref: 'Skill'
+    }],
+    scores : [String]
 });
 
 mongoose.models = {};

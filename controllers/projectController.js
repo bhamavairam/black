@@ -51,6 +51,25 @@ exports.getAllprojects = async (req,res) => {
     };
 }
 
+exports.findProject = async (req,res) => {
+
+    try{
+        const project = await Project.findById(req.params.id);
+    f
+        res.status(200).json( {
+            status: 'success',
+            data : {
+                project} });
+    }
+    catch(err)
+    {
+        res.status(400).json( { 
+            status: 'failed',
+            message : err
+        });
+    };
+}
+
 exports.updateProject = async (req,res) => {
 
     try 

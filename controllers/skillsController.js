@@ -53,6 +53,26 @@ exports.getAllskill = async (req,res) => {
     };
 }
 
+exports.findSkill = async (req,res) => {
+
+    try{
+        const skill = await Skills.findById(req.params.id);
+    
+        res.status(200).json( {
+            status: 'success',
+            data : {
+                skill} });
+    }
+    catch(err)
+    {
+        res.status(400).json( { 
+            status: 'failed',
+            message : err
+        });
+    };
+}
+
+
 exports.updateSkill = async (req,res) => {
 
     try 
