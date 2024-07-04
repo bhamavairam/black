@@ -13,11 +13,11 @@ router
     .route('/')
     .get(userController.getAllUsers)
     .post(userController.checkBody, userController.loginUser)
-    .delete(userController.deleteUser)
     //.put();
 
 router
 .route('/:id')
 .get(userController.getAllUsers)
+.delete(userController.deleteUser)
 
 module.exports = router;

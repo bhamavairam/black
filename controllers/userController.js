@@ -75,11 +75,20 @@ exports.loginUser = (req,res) => {
 };
     
 
-exports.deleteUser = (req,res) => {
-    console.log(req.body);
+exports.deleteUser = async (req,res) => {
+    try 
+    {
+        const deletedUser = await User.findByIdAndDelete( req.params.id, req.body );
+    
     res.status(200).json( {
         status: 'success',
-        message: 'user DELETED'
+        data : deletedUser
     });
+    } catch (err) {
+        res.status(400).json(  {
+            status: 'failed',
+            message: err
+        })
+    }
 };
     
