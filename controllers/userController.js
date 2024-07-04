@@ -1,3 +1,4 @@
+const User = require('./../models/userModule')
 
 exports.checkID = (req,res, next, val ) => {
     console.log( 'check DB for this ID '+val);
@@ -22,14 +23,48 @@ exports.checkBody = (req,res, next ) => {
 };
 
 
-exports.getAllUsers = (req,res) => {
+exports.getAllUsers = async (req,res) => {
 
-    
+    try{
+        const users= await User.find();
         res.status(200).json( {
             status: 'success',
-            message: 'users retrieved successfully'
+            length : users.length,
+            data : {
+                users} });
+    }
+    catch(err)
+    {
+        res.status(400).json( { 
+            status: 'failed',
+            message : err
         });
     };
+}
+    
+    exports.getResources = async (req,res) => {
+
+        try{
+            const resources = await Resource.find().populate('skills');
+            // { 
+            //    shortname: 'rajass',  
+            //    skill: "BankWorld ATM Controller" 
+           // }).exec();
+    
+            res.status(200).json( {
+                status: 'ressuccess',
+                length : resources.length,
+                data : {
+                    resources} });
+        }
+        catch(err)
+        {
+            res.status(400).json( { 
+                status: 'failed',
+                message : err
+            });
+        };
+    }
     
 exports.loginUser = (req,res) => {
     console.log(req.body);
