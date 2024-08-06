@@ -1,4 +1,5 @@
 const Skills = require('../models/skills')
+const Users = require('../models/userModule')
 const Temporary = require('../models/temporaryModel');
 
 exports.checkBody = (req,res, next ) => {
@@ -13,14 +14,14 @@ exports.checkBody = (req,res, next ) => {
     next(); 
 };
 
-exports.createSkill = async (req,res) => {
+exports.createTemp = async (req,res) => {
 
     try 
     {
         console.log("Received for Temporary")
         const temp = {
-            name : "skills",
-            data : req.body,
+            name : req.body.name,
+            data : req.body.data,
             status : "new"
         };
 
@@ -57,18 +58,18 @@ exports.createSkill = async (req,res) => {
         */
 };
 
-exports.getAllskill = async (req,res) => {
+exports.getAll = async (req,res) => {
 
     try{
-        const skills = await Skills.find();
+        const temp = await Temporary.find();
         
-        console.log(skills[0])
+        console.log(temp[0])
     
         res.status(200).json( {
             status: 'success',
-            length : skills.length,
+            length : temp.length,
             data : {
-                skills} });
+                temp} });
     }
     catch(err)
     {
@@ -99,18 +100,30 @@ exports.findSkill = async (req,res) => {
 }
 
 
-exports.updateSkill = async (req,res) => {
+exports.updateTemp = async (req,res) => {
 
+    console.log('update Temporary')
     try 
     {
-        const updatedSkill = await Skills.findByIdAndUpdate( req.params.id, req.body , { new: true}  );
+        const temp = await Temporary.findById(req.params.id);
+        if ( temp.name == 'skills' ){
+            console.log("Skill approved")
+            const newSkill = await Skills.create( temp.data  );
+            const deletedTemp = await Temporary.findByIdAndDelete( req.params.id );
+        }
+        if ( temp.name == 'user' ){
+            console.log("User approved")
+            const newSkill = await Users.create( temp.data  );
+            const deletedTemp = await Temporary.findByIdAndDelete( req.params.id );
+        }
+
+//        const updatedSkill = await Skills.findByIdAndUpdate( req.params.id, req.body , { new: true}  );
     
     res.status(200).json( {
-        status: 'success',
-        data : updatedSkill
+        status: 'success'
     });
     } catch (err) {
-        console.log("Failed to upate Skills Collection")
+        console.log("Failed to upate Collection")
         res.status(400).json(  {
             status: 'failed',
             message: err
@@ -118,15 +131,15 @@ exports.updateSkill = async (req,res) => {
     }
 };
 
-exports.deleteSkill = async (req,res) => {
+exports.deleteTemp = async (req,res) => {
 
     try 
     {
-        const deletedSkill = await Skills.findByIdAndDelete( req.params.id, req.body );
+        const deletedTemp = await Temporary.findByIdAndDelete( req.params.id );
     
     res.status(200).json( {
         status: 'success',
-        data : deletedSkill
+        data : deletedTemp
     });
     } catch (err) {
         res.status(400).json(  {

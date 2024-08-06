@@ -11,7 +11,7 @@ const skillSchema = new mongoose.Schema( {
         required: false
     }
 });
-
+/*
 const resourceSchema = new mongoose.Schema( {
     name : {
         type: String,
@@ -28,7 +28,9 @@ const resourceSchema = new mongoose.Schema( {
     }
 });
 
-const Skills = mongoose.model( 'Skill', skillSchema);
 const Resources = mongoose.model( 'Resource', resourceSchema);
+*/
+
+const Skills = mongoose.model( 'Skill', skillSchema);
 
 module.exports = Skills;

@@ -1,6 +1,8 @@
 const jwt = require('jsonwebtoken')
 const User = require('./../models/userModule')
 const AppError = require('./../utils/appError')
+const temp = require('./../models/temporaryModel')
+const Temporary = require('./../models/temporaryModel')
 
 const signToken = function(id, category){
 
@@ -9,18 +11,30 @@ const signToken = function(id, category){
 }
 exports.signup = async (req, res, next) => {
     console.log(req.body)
+
     try
     {
-    const newUser = await User.create({
+      const signedUser = {
+        name: req.body.name,
+        email: req.body.email,
+        password: req.body.password
+      }
+
+      const newTemp = await Temporary.create({
+            name : 'user',
+            data : signedUser,
+            status : 'new'
+      })
+/*    const newUser = await User.create({
         name: req.body.name,
         email: req.body.email,
         password: req.body.password
     });
-
+*/
     res.status(201).json( {
         status : 'success',
         data: {
-            user: newUser
+            user: newTemp
         }
     })
     }

@@ -7,7 +7,7 @@ const projectRouter = require('./routes/projectRoutes');
 const clientRouter = require('./routes/clientRoutes')
 const skillRouter = require('./routes/skillRoutes')
 const resourceRouter = require('./routes/resourceRoutes')
-
+const temporaryRouter = require('./routes/tempRoutes')
 const app = express();
 
 app.use(morgan('dev'));
@@ -25,5 +25,6 @@ app.use('/api/v1/projects', projectRouter);
 app.use('/api/v1/clients', clientRouter);
 app.use('/api/v1/skills', skillRouter);
 app.use('/api/v1/resources', resourceRouter);
+app.use('/api/v1/queue', temporaryRouter);
 
 module.exports = app;
